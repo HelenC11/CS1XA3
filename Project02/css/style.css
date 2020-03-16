@@ -321,6 +321,31 @@ h4 {
 	border-color: #4f4d47;	
 }
 
+.button_1 {
+	background-color: #e74c3c;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	margin: 4px 2px;
+	cursor: pointer;
+}
+.button {
+	background-color: #732673;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	margin: 4px 2px;
+	cursor: pointer;
+}
+
 
 /* ----------------------------------------------------
 	 Home page styles
@@ -780,6 +805,13 @@ figure.effect-moses:hover img {
 	font-size: 1em;
 }
 
+
+.desc .e-heading2 {
+    color: #732673;
+	font-weight: 400;
+	text-transform: none;
+	font-size: 1em;
+}
 .more {
 	color: #7D7D7D;
 	line-height: 1.6em;
@@ -1220,21 +1252,5 @@ h6 {
 .heading-services {
     font-size: 1.1em;
 }
-.parent {
-  position: relative;
-  top: 0;
-  left: 0;
-}
-.image1 {
-  position: relative;
-  top: 0;
-  left: 0;
-  border: 1px red solid;
-}
-.image2 {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  border: 1px green solid;
-}
+
 }
