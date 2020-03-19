@@ -12,6 +12,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 }
 
+
 a {
     color: #4f4d47;
 	text-decoration: none;
@@ -322,7 +323,7 @@ h4 {
 }
 
 .button_1 {
-	background-color: #e74c3c;
+	background-color: #732673;
 	border: none;
 	color: white;
 	padding: 15px 32px;
@@ -334,7 +335,7 @@ h4 {
 	cursor: pointer;
 }
 .button {
-	background-color: #732673;
+	background-color: #e74c3c;
 	border: none;
 	color: white;
 	padding: 15px 32px;
@@ -407,6 +408,173 @@ h4 {
     right: 41px;
     z-index: 1;
 }
+
+
+.tester {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+	height: 200px;
+	border: 15px solid white;
+    margin:-60px 0 0 -60px;
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+
+.tester2 {
+    position: absolute;
+    top: 87px;
+    left: 41px;
+    width: 200px;
+	height: 200px;
+	border: 15px solid white;
+    margin:60px 0 0 60px;
+    -webkit-animation:counterspin 6s linear infinite;
+    -moz-animation:counterspin 6s linear infinite;
+    animation:counterspin 6s linear infinite;
+}
+
+@-moz-keyframes counterspin { 100% { -moz-transform: rotate(-360deg); } }
+@-webkit-keyframes counterspin { 100% { -webkit-transform: rotate(-360deg); } }
+@keyframes counterspin { 100% { -webkit-transform: rotate(-360deg); transform:rotate(-360deg); } }
+
+
+.tester3 {
+    position: absolute;
+    top: 87px;
+    right: 41px;
+    width: 200px;
+	height: 200px;
+	border: 15px solid white;
+    margin:60px 0 0 60px;
+    -webkit-animation:counterspin 8s linear infinite;
+    -moz-animation:counterspin 8s linear infinite;
+    animation:counterspin 8s linear infinite;
+}
+
+
+.tester4 {
+    position: absolute;
+    top: 500px;
+    right: 100px;
+    width: 100px;
+	height: 100px;
+	border: 15px solid #e74c3c;
+    margin:60px 0 0 60px;
+    -webkit-animation:spin 6s linear infinite;
+    -moz-animation:spin 6s linear infinite;
+	animation:spin 6s linear infinite;
+	
+}
+
+.tester5 {
+    position: absolute;
+    top: 400px;
+    left: 20px;
+    width: 100px;
+	height: 100px;
+	border: 15px solid #e74c3c;
+    margin:60px 0 0 60px;
+    -webkit-animation:counterspin 8s linear infinite;
+    -moz-animation:counterspin 8s linear infinite;
+	animation:counterspin 8s linear infinite;
+	
+}
+
+.tester6 {
+    position: absolute;
+    top: 100px;
+    left: 400px;
+    width: 100px;
+	height: 100px;
+	border: 15px solid #e74c3c;
+    margin:60px 0 0 60px;
+    -webkit-animation: spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+	animation:spin 4s linear infinite;
+	
+}
+
+.tester7 {
+    position: absolute;
+    top: 500px;
+    left: 300px;
+    width: 100px;
+	height: 100px;
+	border: 15px solid #e74c3c;
+    margin:60px 0 0 60px;
+    -webkit-animation: counterspin 10s linear infinite;
+    -moz-animation:counterspin 10s linear infinite;
+	animation:counterspin 10s linear infinite;
+	
+}
+
+
+.scaler {
+    position: absolute;
+    top: 87px;
+    left: 41px;
+    width: 200px;
+	height: 200px;
+	border: 15px solid white;
+    margin:60px 0 0 60px;
+    animation: scale 30s infinite linear;    
+}
+
+.spinner {
+    position: relative;
+    top: 50px;
+    animation: spin2 10s infinite linear;
+}
+
+.scaler1 {
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    width: 250px;
+	height: 250px;
+	border: 15px solid white;
+    margin:-60px 0 0 -60px;
+    animation: scale2 30s infinite linear;    
+}
+
+.spinner1 {
+    position: relative;
+    top: 20px;
+    animation: spin3 10s infinite linear;
+}
+
+
+
+@keyframes spin2 { 
+    100% { 
+        transform: rotate(360deg);
+    } 
+}
+@keyframes spin3 { 
+    100% { 
+        transform: rotate(-360deg);
+    } 
+}
+
+
+@keyframes scale2 {
+    100% {
+         transform: scaleX(2) scaleY(2);
+    }
+} 
+@keyframes scale {
+    100% {
+         transform: scaleX(2) scaleY(2);
+    }
+}
+
 
 
 /* ----------------------------------------------------
@@ -805,13 +973,6 @@ figure.effect-moses:hover img {
 	font-size: 1em;
 }
 
-
-.desc .e-heading2 {
-    color: #732673;
-	font-weight: 400;
-	text-transform: none;
-	font-size: 1em;
-}
 .more {
 	color: #7D7D7D;
 	line-height: 1.6em;
