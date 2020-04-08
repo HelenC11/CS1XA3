@@ -1,0 +1,24 @@
+echo "Hello would you like to Backup or Restore? Please the action you would like to do (Backup/Restore)"
+read action
+
+if [ "$action" = "Backup" ] ; then
+        if [ -d "backup" ] ; then
+                rm -r backup
+                mkdir backup
+        else
+                mkdir backup
+        fi
+        touch ~/private/CS1XA3/Project01/backup/restore.log
+        find -iname '*.tmp' -exec cp {} ~/private/CS1XA3/Project01/backup/ \; -exec rm {} \;
+ 
+
+
+
+elif [ "$action" = "Restore" ]
+then
+        echo "restoring"
+
+else
+        echo "That is not a valid command. Please rerun the script and try again"
+fi
+

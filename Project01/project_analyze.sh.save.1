@@ -1,0 +1,12 @@
+ cd ..
+        find ./** -name *."$extension" | wc -lecho "Hello would you like to Backup or Restore? Please the action you would like to do (Backup/Restore)"
+read action
+
+if [ "$action" = "Backup" ] ; then
+	if [ -d "backup" ] ; then
+		mkdir backup
+	else 
+		rm -r backup
+	fi
+	
+		

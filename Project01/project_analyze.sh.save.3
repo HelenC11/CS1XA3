@@ -1,0 +1,103 @@
+#!/bin/bash
+
+echo "Hello what action would you like to do? Switch or Backup"
+echo "Switch: will change the permissions of a file"
+echo "Backup: will backup a copy of the file"
+read prompt
+
+if [ "$prompt" = "Backup" ] ; then
+	
+	# Backup delete and restore
+	echo "Hello would you like to Backup or Restore? Please type the action you would like to do (Backup/Restore)"
+	read action
+
+	if [ "$action" = "Backup" ] ; then
+        	if [ -d "backup" ] ; then
+                	rm -r backup
+                	mkdir backup
+        	else
+                	mkdir backup
+        	fi
+
+
+		
+        	find -iname '*.tmp' -exec cp {} ./backup/ \; -exec rm {} \; -exec echo "$PWD" >> restore.log \;
+		mv restore.log
+ 
+
+
+
+	elif [ "$action" = "Restore" ]
+	then
+        	echo "restoring"
+		if [ -f "restore.log" ] ; then
+			echo "Returning files"
+		
+		else
+			echo "Error: log does not exist, nothing to restore"
+		fi
+
+	else
+        echo "That is not a valid command. Please rerun the script and try again"
+	fi
+
+#Switch to executable
+elif [ "$prompt" = "Switch" ] ; then
+	echo Hello, what action would you like to perform today? Please enter Change or Restore
+
+	read result
+
+	> permission.log
+
+	for file in *.sh; do 
+
+    		if [ "$result" = "Change" ]
+
+   		then
+
+     		stat -c '%A %a %n' *.sh > permission.log
+
+      		echo $file
+			if [ ! -z ”$(find $file -perm -u+w)” ]; then
+
+				chmod u+x $file
+
+     			fi
+
+     			if [ ! -z ”$(find $file -perm -g+w)” ]; then
+
+       				chmod g+x $file
+
+     			fi
+
+     			if [ ! -z ”$(find $file -perm -o+w)” ]; then
+
+       				chmod g+x $file
+
+     			fi
+
+   		elif  [ "$result" = "Restore"  ]; then
+
+        		while read PERMS  FILE
+
+        		do
+
+              			chmod  "$PERMS"  "$FILE" 
+
+        		done <permission.log
+
+   		else
+
+         		echo  "That is not an legal action, please rerun the script and try again"
+
+   		fi
+
+	done
+
+elif [ "$prompt" = "something" ] ; then
+
+	cp pre-commit ../.git/hooks
+	chmod +x pre-commit
+else 
+	echo "That is not a legal action, please rerun the script and try again"
+fi
