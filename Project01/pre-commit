@@ -1,0 +1,9 @@
+#!/bin/sh
+if 
+	test $(grep 'tryMe' */README.md |wc -l) = 0
+then
+	cat <<\EOF
+README.md needs to have tryMe to commit
+EOF
+	exit 1
+fi
