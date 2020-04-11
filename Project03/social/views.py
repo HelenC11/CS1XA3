@@ -130,9 +130,18 @@ def people_view(request):
         # TODO Objective 4: create a list of all users who aren't friends to the current user (and limit size)
 
         all_people = models.UserInfo.objects.all()
-        for thing in all_people:
-            print(thing.user)
-        all_names=User.objects.all()
+        myuserInfo=models.UserInfo.objects.get(user=request.user)
+        print('all_people=', len(all_people))
+        myFriends=myuserInfo.friends.all()
+
+        for personInfo in all_people.all():
+            if personInfo in myFriends:
+                all_people.remove(personInfo)
+
+
+
+
+
 
 
         print('all_people=', len(all_people))

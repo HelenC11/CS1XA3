@@ -5,7 +5,7 @@
 {% block middle_column %}
     <!-- TODO Objective 4: Use all_people list to render actual people -->
     {% for personInfo in all_people.all %}
-
+        {% if personInfo.user.username != user.username %}
         <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
             {% load static %}
             <img src="{% static 'avatar.png'  %}" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
@@ -21,7 +21,7 @@
                  <button type="button" id="fr-USERNAME" class="w3-button w3-theme-d1 w3-margin-bottom fr-button">Friend Request</button>
 
         </div>
-
+        {% endif %}
     {% endfor %}
 
     <div class="w3-container">
