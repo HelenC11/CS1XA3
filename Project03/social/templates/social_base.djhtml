@@ -43,7 +43,7 @@
                 <!--                 TODO Objective 2: Add Currently Logged In User Interests -->
                 <span class="w3-tag w3-small w3-theme-d5">
                 {% for interest in user_info.interests.all %}
-                {{interest.label }}
+                <p>{{interest.label }}</p>
                 {% endfor %}
                 </span>
 
