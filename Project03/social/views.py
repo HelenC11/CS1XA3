@@ -2,7 +2,7 @@ from django.http import HttpResponse,HttpResponseNotFound
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm, UserChangeForm
-from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth import authenticate, login, get_user, update_session_auth_hash
 from django.contrib import messages
 from datetime import datetime
 
@@ -34,6 +34,8 @@ def messages_view(request):
     request.session['failed'] = True
     return redirect('login:login_view')
 
+
+
 def account_view(request):
     """Private Page Only an Authorized User Can View, allows user to update
        their account information (i.e UserInfo fields), including changing
@@ -64,48 +66,46 @@ def account_view(request):
     if request.user.is_authenticated:
         form = None
         # TODO Objective 3: Create Forms and Handle POST to Update UserInfo / Password
+        existingUserInfo = models.UserInfo.objects.get(user=request.user)
 
         if request.method == 'POST':
+            formName = request.POST.get('name')
+            print("-------formName:" + formName);
 
-            existingUserInfo = models.UserInfo.objects.get(user=request.user)
-            print(("===exiting birthday=" ,existingUserInfo.birthday))
-
-
-            request.user.employment = request.POST['employment']
-            request.user.location = request.POST['location']
-            request.user.birthday = request.POST['birthday']
-            request.user.interests = request.POST['interests']
-            inter = models.Interest(label=request.POST['interests'])
-            inter.save()
-            request.user.save()
-
-            if request.POST['employment'] is not None:
-                existingUserInfo.employment = request.user.employment
-
-
-            if request.POST['location'] is not None:
-                existingUserInfo.location = request.user.location
-
-
-
-
-            if request.POST['birthday'] !=""  and  request.POST['birthday'] is not None:
-                existingUserInfo.birthday = request.user.birthday
+            if (formName == 'pwdForm'):
+                password = request.POST['password']
+                print("password:" + password);
+                if password is not None and password != "":
+                    user = get_user(request)
+                    user.set_password(password)
+                    user.save()
             else:
-                #existingUserInfo.birthday = datetime.strptime(str(existingUserInfo.birthday), '%Y-%m-%d')
-                existingUserInfo.birthday = None
-
-
-
-            if request.POST['interests']!="" and request.POST['interests']is not None:
+                request.user.employment = request.POST['employment']
+                request.user.location = request.POST['location']
+                request.user.birthday = request.POST['birthday']
+                request.user.interests = request.POST['interests']
                 inter = models.Interest(label=request.POST['interests'])
                 inter.save()
-                existingUserInfo.interests.add(inter)
+                request.user.save()
 
+                if request.POST['employment'] is not None:
+                    existingUserInfo.employment = request.user.employment
 
-            existingUserInfo.save()
-          #  print(("===existingUserInfo.birthday=" + existingUserInfo.birthday))
+                if request.POST['location'] is not None:
+                    existingUserInfo.location = request.user.location
 
+                if request.POST['birthday'] != "" and request.POST['birthday'] is not None:
+                    existingUserInfo.birthday = request.user.birthday
+                else:
+                    # existingUserInfo.birthday = datetime.strptime(str(existingUserInfo.birthday), '%Y-%m-%d')
+                    existingUserInfo.birthday = None
+
+                if request.POST['interests'] != "" and request.POST['interests'] is not None:
+                    inter = models.Interest(label=request.POST['interests'])
+                    inter.save()
+                    existingUserInfo.interests.add(inter)
+
+                existingUserInfo.save()
 
         context = {'user_info': request.user,
                    'userChangeform': form}

@@ -78,13 +78,10 @@ def signup_view(request):
         else:
             request.session['failed'] = True
 
-    form = AuthenticationForm(request.POST)
+    form = UserCreationForm(request.POST)
     failed = request.session.get('failed',False)
-    context = { 'login_form' : form,
-                'failed' : failed }
 
-
-    context = { 'signup_form' : form }
+    context = { 'signup_form' : form ,'failed': failed}
 
 
     return render(request,'signup.djhtml',context)

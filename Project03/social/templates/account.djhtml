@@ -9,15 +9,15 @@
                 <div class="w3-container w3-padding">
                     <h6 class="w3-opacity">Change Password</h6>
                     <!--                     TODO Objective 3: Add Password Change Form -->
-                       <form method="post" action="{% url 'social:account_view' %}">
-                        {% csrf_token %}
+                       <form name="pwdForm" method="post" action="{% url 'social:account_view' %}">
+                            {% csrf_token %}
                             <label for="password"><b>Password</b></label>
                             <input type="text" name="password" >
                             <button type="submit">Change Password</button>
                             </P>
+                            <input type="hidden" name="name" value="pwdForm">
+                            {{ login_form }}
                        </form>
-
-
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
                     <h6 class="w3-opacity">Update Info</h6>
                     <!--                     TODO Objective 3: Add User Info Update Forms -->
                     <div class="container">
-                        <form method="post" action="{% url 'social:account_view' %}">
+                        <form name="userForm" method="post" action="{% url 'social:account_view' %}">
                           {% csrf_token %}
 
                            <p>
@@ -52,6 +52,7 @@
 
 
                             <button type="submit">Update</button>
+                            <input type="hidden" name="name" value="userForm">
                          </form>
                     </div>
 
