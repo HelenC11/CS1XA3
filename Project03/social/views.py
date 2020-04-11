@@ -127,14 +127,20 @@ def people_view(request):
       out: (HttpResponse) - if user is authenticated, will render people.djhtml
     """
     if request.user.is_authenticated:
-        user_info = models.UserInfo.objects.get(user=request.user)
         # TODO Objective 4: create a list of all users who aren't friends to the current user (and limit size)
-        all_people = []
 
+        all_people = models.UserInfo.objects.all()
+        for thing in all_people:
+            print(thing.user)
+        all_names=User.objects.all()
+
+
+        print('all_people=', len(all_people))
         # TODO Objective 5: create a list of all friend requests to current user
         friend_requests = []
 
-        context = { 'user_info' : user_info,
+
+        context = { 'user_info' : request.user,
                     'all_people' : all_people,
                     'friend_requests' : friend_requests }
 

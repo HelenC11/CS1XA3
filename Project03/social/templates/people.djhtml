@@ -4,17 +4,25 @@
 
 {% block middle_column %}
     <!-- TODO Objective 4: Use all_people list to render actual people -->
+    {% for personInfo in all_people.all %}
+
         <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
             {% load static %}
             <img src="{% static 'avatar.png'  %}" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-            <h4>TODO Add Username</h4><br>
+
+            <h4>{{personInfo.user}}</h4><br>
             <hr class="w3-clear">
-            <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> TODO Add Employment </p>
-            <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> TODO Add Location </p>
-            <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> TODO Add Birthday </p>
+            <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> {{personInfo.employment}}</p>
+            <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> {{personInfo.location}} </p>
+            <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> {{personInfo.birthday}}</p>
+
+
                 <!-- TODO Objective 5: make id unique to username and disable button if friend request already sent -->
-                <button type="button" id="fr-USERNAME" class="w3-button w3-theme-d1 w3-margin-bottom fr-button">Friend Request</button>
+                 <button type="button" id="fr-USERNAME" class="w3-button w3-theme-d1 w3-margin-bottom fr-button">Friend Request</button>
+
         </div>
+
+    {% endfor %}
 
     <div class="w3-container">
         <p><button id="more-ppl-button" class="w3-button w3-block w3-theme-l4">More</button></p>
