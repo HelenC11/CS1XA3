@@ -16,7 +16,7 @@
                             <button type="submit">Change Password</button>
                             </P>
                             <input type="hidden" name="name" value="pwdForm">
-                            {{ login_form }}
+
                        </form>
                 </div>
             </div>
@@ -53,6 +53,7 @@
 
                             <button type="submit">Update</button>
                             <input type="hidden" name="name" value="userForm">
+
                          </form>
                     </div>
 

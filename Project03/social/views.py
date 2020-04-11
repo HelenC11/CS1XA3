@@ -107,8 +107,9 @@ def account_view(request):
 
                 existingUserInfo.save()
 
+
         context = {'user_info': request.user,
-                   'userChangeform': form}
+                   'login_form': form}
         return render(request, 'account.djhtml', context)
         request.session['failed'] = True
         return redirect('login:login_view')
