@@ -7,7 +7,7 @@ from django.contrib import messages
 from datetime import datetime
 
 from . import models
-
+PEOPLE_MORE_SESSION_KEY = '_people_more_key'
 def messages_view(request):
     """Private Page Only an Authorized User Can View, renders messages page
        Displays all posts and friends, also allows user to make new posts and like posts
@@ -131,7 +131,6 @@ def people_view(request):
 
         all_people = models.UserInfo.objects.all()
         myuserInfo=models.UserInfo.objects.get(user=request.user)
-        print('all_people=', len(all_people))
         myFriends=myuserInfo.friends.all()
 
         for personInfo in all_people.all():
@@ -139,19 +138,30 @@ def people_view(request):
                 all_people.remove(personInfo)
 
 
+        num_visits = request.session.get('num_visits', 0)
 
+        listUpperBound = num_visits + 2
+        peopleSize = len(all_people)
 
+        new_list = []
+        if listUpperBound < peopleSize - 1:
+            for i in range(listUpperBound) :
+                new_list.append(all_people[i])
+        else:
+            new_list = all_people
 
+        print("num_visits = ", num_visits)
+        print ("new_list size=" , len(new_list))
 
-
-        print('all_people=', len(all_people))
         # TODO Objective 5: create a list of all friend requests to current user
         friend_requests = []
 
-
         context = { 'user_info' : request.user,
                     'all_people' : all_people,
+                    'num_visits' : num_visits,
+                    'new_list' : new_list,
                     'friend_requests' : friend_requests }
+
 
         return render(request,'people.djhtml',context)
 
@@ -248,8 +258,12 @@ def more_ppl_view(request):
     if request.user.is_authenticated:
         # update the # of people dispalyed
 
-        # TODO Objective 4: increment session variable for keeping track of num ppl displayed
+        num_visits = request.session.get('num_visits', 0)
+        request.session['num_visits'] = num_visits + 1
 
+        context = {'num_visits': num_visits}
+
+        # TODO Objective 4: increment session variable for keeping track of num ppl displayed
         # return status='success'
         return HttpResponse()
 

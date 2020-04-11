@@ -4,7 +4,7 @@
 
 {% block middle_column %}
     <!-- TODO Objective 4: Use all_people list to render actual people -->
-    {% for personInfo in all_people.all %}
+    {% for personInfo in new_list %}
         {% if personInfo.user.username != user.username %}
         <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
             {% load static %}
