@@ -7,6 +7,8 @@ from django.contrib import messages
 from datetime import datetime
 
 from . import models
+
+
 PEOPLE_MORE_SESSION_KEY = '_people_more_key'
 def messages_view(request):
     """Private Page Only an Authorized User Can View, renders messages page
@@ -156,6 +158,7 @@ def people_view(request):
         # TODO Objective 5: create a list of all friend requests to current user
         friend_requests = []
 
+
         context = { 'user_info' : request.user,
                     'all_people' : all_people,
                     'num_visits' : num_visits,
@@ -283,12 +286,38 @@ def friend_request_view(request):
                              an empty HttpResponse, 404 if POST data doesn't contain frID
     '''
     frID = request.POST.get('frID')
+
+
     if frID is not None:
         # remove 'fr-' from frID
         username = frID[3:]
 
         if request.user.is_authenticated:
             # TODO Objective 5: add new entry to FriendRequest
+            print("---------"+frID)
+
+            friend = models.User.objects.filter(username=username)[:1].get()
+
+            print("-------key--" ,friend)
+            print("-------key--" , friend.username)
+            if request.method == "POST":
+                from_user = models.UserInfo.objects.get(user=request.user)
+                to_user= models.UserInfo.objects.get(user_id=friend.id)
+
+
+                created = models.FriendRequest.objects.get_or_create(from_user=from_user, to_user=to_user)
+
+                if created is False:
+                    print("already created")
+                else:
+                    print("friend request created")
+
+            #frRequest = models.FriendRequest()
+            #frRequest.to_user(frID.user_info)
+            #frRequest.from_user(request.user_info)
+            
+            #frRequest.save()
+
 
             # return status='success'
             return HttpResponse()

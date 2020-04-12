@@ -18,7 +18,10 @@
 
 
                 <!-- TODO Objective 5: make id unique to username and disable button if friend request already sent -->
-                 <button type="button" id="fr-USERNAME" class="w3-button w3-theme-d1 w3-margin-bottom fr-button">Friend Request</button>
+
+
+
+                <button type="button" id="fr-{{personInfo.user}}" class="w3-button w3-theme-d1 w3-margin-bottom fr-button">Friend Request</button>
 
         </div>
         {% endif %}
@@ -36,7 +39,7 @@
           <p>Friend Request</p>
           {% load static %}
           <img src="{% static 'avatar.png'  %}" alt="Avatar" style="width:50%"><br>
-          <span>TODO Add Username</span>
+          <span>{{personInfo.user}}to fix</span>
           <div class="w3-row w3-opacity">
             <div class="w3-half">
                 <!-- TODO Objective 6: make id specific to user who sent request -->
