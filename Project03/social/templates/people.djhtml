@@ -34,18 +34,20 @@
 
 {% block right_column %}
     <!-- TODO Objective 5: Use friend_requests list to render friend requests to user -->
+     {% for request in friend_requests %}
       <div class="w3-card w3-round w3-white w3-center">
         <div class="w3-container">
           <p>Friend Request</p>
           {% load static %}
           <img src="{% static 'avatar.png'  %}" alt="Avatar" style="width:50%"><br>
-          <span>{{personInfo.user}}to fix</span>
+          <span>{{request.user}}</span>
           <div class="w3-row w3-opacity">
             <div class="w3-half">
                 <!-- TODO Objective 6: make id specific to user who sent request -->
                 <button id="A-USERNAME" class="w3-button w3-block w3-green w3-section acceptdecline-button" title="Accept">
                     <i class="fa fa-check"></i></button>
             </div>
+
             <div class="w3-half">
                 <!-- TODO Objective 6: make id specific to user who sent request -->
                 <button id="D-USERNAME" class="w3-button w3-block w3-red w3-section acceptdecline-button" title="Decline">
@@ -54,6 +56,7 @@
           </div>
         </div>
       </div>
+      {% endfor %}
       <br>
 {% endblock %}
 

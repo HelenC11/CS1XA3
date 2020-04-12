@@ -156,15 +156,17 @@ def people_view(request):
         print ("new_list size=" , len(new_list))
 
         # TODO Objective 5: create a list of all friend requests to current user
+        friend_list = models.FriendRequest.objects.filter(to_user=myuserInfo)
         friend_requests = []
-
+        for friend in friend_list:
+            friend_requests.append(friend.from_user)
+        print("------------------friend", friend_requests)
 
         context = { 'user_info' : request.user,
                     'all_people' : all_people,
                     'num_visits' : num_visits,
                     'new_list' : new_list,
                     'friend_requests' : friend_requests }
-
 
         return render(request,'people.djhtml',context)
 
@@ -303,7 +305,6 @@ def friend_request_view(request):
             if request.method == "POST":
                 from_user = models.UserInfo.objects.get(user=request.user)
                 to_user= models.UserInfo.objects.get(user_id=friend.id)
-
 
                 created = models.FriendRequest.objects.get_or_create(from_user=from_user, to_user=to_user)
 
