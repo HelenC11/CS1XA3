@@ -216,12 +216,25 @@ def post_submit_view(request):
    	  out : (HttpResponse) - after adding a new entry to the POST model, returns an empty HttpResponse,
                              or 404 if any error occurs
     '''
+    print("print here")
     postContent = request.POST.get('postContent')
+    print("Postcontent------", postContent)
     if postContent is not None:
         if request.user.is_authenticated:
-
+            print("Postcontent------",postContent)
             # TODO Objective 8: Add a new entry to the Post model
+            if request.method == "POST":
+                myuserInfo = models.UserInfo.objects.get(user=request.user)
 
+                created = models.Post.objects.create(owner=myuserInfo , content=postContent)
+                if created:
+                    print("Post------", )
+                else:
+                    print("no")
+
+            context={
+                'postContent': postContent
+            }
             # return status='success'
             return HttpResponse()
         else:
@@ -345,25 +358,22 @@ def accept_decline_view(request):
             myuserInfo = models.UserInfo.objects.get(user=request.user)
 
             # TODO Objective 6: delete FriendRequest entry and update friends in both Users
-            print("---------choice:" + choice)
-            print("---------friend username:" , personInfo.user)
-            print("myself----------", myuserInfo.user)
+
 
             if choice == 'A':
-                print("-----before----personInfo=", personInfo.friends)
-                print("-----before----myfriends=", myuserInfo.friends)
+
                 myuserInfo.friends.add(personInfo)
                 myuserInfo.save()
-                print("-----in----myfriends=", myuserInfo.friends)
+
                 personInfo.friends.add(myuserInfo)
                 personInfo.save()
-                print("---------myfriends=" ,myuserInfo.friends)
+
 
                 exist_requests = models.FriendRequest.objects.filter(to_user=myuserInfo, from_user=personInfo)
-                print("---------exist_request=", exist_requests)
+
                 exist_requests.delete()
             else:
-                print("Decline case:")
+
                 exist_requests = models.FriendRequest.objects.filter(to_user=myuserInfo, from_user=personInfo)
                 exist_requests.delete()
 
