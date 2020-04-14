@@ -36,16 +36,20 @@
 
 {% block right_column %}
     <!-- TODO Objective 7: use user_info object to render friends -->
+      {% for friend in friends %}
       <div class="w3-card w3-round w3-white w3-center">
         <div class="w3-container">
           <p>Friend</p>
           {% load static %}
           <img src="{% static 'avatar.png'  %}" alt="Avatar" style="width:50%"><br>
-          <span>TODO Add Friend</span>
+          <span>{{friend.user}}</span>
         </div>
       </div>
       <br>
+      {% endfor %}
+
 {% endblock %}
+
 
 {% block script %}
     {% load static %}

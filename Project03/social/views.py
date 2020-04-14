@@ -20,7 +20,7 @@ def messages_view(request):
     """
     if request.user.is_authenticated:
         user_info = models.UserInfo.objects.get(user=request.user)
-
+        friends=user_info.friends.all()
 
         # TODO Objective 9: query for posts (HINT only return posts needed to be displayed)
         posts = []
@@ -28,7 +28,8 @@ def messages_view(request):
         # TODO Objective 10: check if user has like post, attach as a new attribute to each post
 
         context = { 'user_info' : user_info
-                  , 'posts' : posts }
+                  , 'posts' : posts,
+                    'friends':friends}
         return render(request,'messages.djhtml',context)
 
     request.session['failed'] = True
