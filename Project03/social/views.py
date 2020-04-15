@@ -24,12 +24,30 @@ def messages_view(request):
 
         # TODO Objective 9: query for posts (HINT only return posts needed to be displayed)
         posts = []
+        posts = models.Post.objects.all()
+        post_visits = request.session.get('post_visits', 0)
+        allPosts=[]
+        for personInfo in posts.all():
+            allPosts.append(personInfo)
 
+        listUpperBound = post_visits + 2
+        postSize = len(allPosts)
+
+        new_list = []
+        if listUpperBound < postSize - 1:
+            for i in range(listUpperBound):
+                new_list.append(allPosts[i])
+        else:
+            new_list = allPosts
+        print('---message_view post_visits=', post_visits)
+
+        print("post_list+++++++", posts)
         # TODO Objective 10: check if user has like post, attach as a new attribute to each post
 
         context = { 'user_info' : user_info
                   , 'posts' : posts,
-                    'friends':friends}
+                    'friends':friends,
+                    'new_list':new_list}
         return render(request,'messages.djhtml',context)
 
     request.session['failed'] = True
@@ -219,9 +237,10 @@ def post_submit_view(request):
     print("print here")
     postContent = request.POST.get('postContent')
     print("Postcontent------", postContent)
+
+
     if postContent is not None:
         if request.user.is_authenticated:
-            print("Postcontent------",postContent)
             # TODO Objective 8: Add a new entry to the Post model
             if request.method == "POST":
                 myuserInfo = models.UserInfo.objects.get(user=request.user)
@@ -254,13 +273,20 @@ def more_post_view(request):
     '''
     if request.user.is_authenticated:
         # update the # of posts dispalyed
-
+        myuserInfo = models.UserInfo.objects.get(user=request.user)
         # TODO Objective 9: update how many posts are displayed/returned by messages_view
+        post_visits = request.session.get('post_visits', 0)
+        request.session['post_visits'] = post_visits + 1
+
+        context = {'post_visits': post_visits}
 
         # return status='success'
+
+
         return HttpResponse()
 
     return redirect('login:login_view')
+
 
 def more_ppl_view(request):
     '''Handles POST Request requesting to increase the amount of People displayed in people.djhtml

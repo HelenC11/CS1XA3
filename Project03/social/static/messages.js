@@ -18,7 +18,8 @@ function submitPost(event) {
 
     // globally defined in messages.djhtml using i{% url 'social:more_post_view' %}
 
-    let postText = event.target.id;
+    let postText = event.target.innerHTML
+
     let json_data = { 'postContent' : postText };
 
     let url_path =  post_submit_url;
