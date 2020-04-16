@@ -18,7 +18,7 @@ function submitPost(event) {
 
     // globally defined in messages.djhtml using i{% url 'social:more_post_view' %}
 
-    let postText = event.target.innerHTML
+    let postText = event.target.querySelector('[contenteditable]');
 
     let json_data = { 'postContent' : postText };
 
