@@ -48,6 +48,11 @@ def logout_view(request):
     """
     # TODO Objective 4 and 9: reset sessions variables
 
+    request.session['num_visits'] = 0
+
+    request.session['post_visits'] =0
+
+
     # logout user
     logout(request)
 
