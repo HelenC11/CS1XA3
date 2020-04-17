@@ -129,7 +129,7 @@ def account_view(request):
                 existingUserInfo.save()
 
 
-        context = {'user_info': request.user,
+        context = {'user_info': existingUserInfo,
                    'login_form': form}
         return render(request, 'account.djhtml', context)
         request.session['failed'] = True
@@ -182,7 +182,7 @@ def people_view(request):
         for friend in friend_list:
             friend_requests.append(friend.from_user)
 
-        context = { 'user_info' : request.user,
+        context = { 'user_info' : myuserInfo,
                     'all_people' : all_people,
                     'num_visits' : num_visits,
                     'new_list' : new_list,
