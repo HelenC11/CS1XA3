@@ -15,12 +15,8 @@ function submitPostResponse(data,status) {
 
 function submitPost(event) {
   // TODO Objective 8: send contents of post-text via AJAX Post to post_submit_view (reload page upon success)
-
-    // globally defined in messages.djhtml using i{% url 'social:more_post_view' %}
-
-    let postText = event.target.querySelector('[contenteditable]');
-
-    let json_data = { 'postContent' : postText };
+    let postContent = document.getElementById("post-text").innerHTML;
+    let json_data = { 'postContent' : postContent };
 
     let url_path =  post_submit_url;
 

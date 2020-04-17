@@ -29,7 +29,7 @@ def messages_view(request):
         allPosts=[]
         for post in posts.all():
             allPosts.append(post)
-            print('----post loop content:', post.content)
+
 
 
         listUpperBound = post_visits + 2
@@ -41,8 +41,9 @@ def messages_view(request):
                 new_list.append(allPosts[i])
         else:
             new_list = allPosts
-        print('---message_view post_visits=', post_visits)
 
+
+        new_list = new_list[::-1]
         print("post_list+++++++", posts)
         # TODO Objective 10: check if user has like post, attach as a new attribute to each post
 
@@ -162,7 +163,7 @@ def people_view(request):
                 all_people.append(personInfo)
             else:
                 print("--people view: in myFriend: "+personInfo.user.username)
-        print("--all_people= ", len(all_people))
+
 
         num_visits = request.session.get('num_visits', 0)
 
@@ -243,9 +244,9 @@ def post_submit_view(request):
    	  out : (HttpResponse) - after adding a new entry to the POST model, returns an empty HttpResponse,
                              or 404 if any error occurs
     '''
-    print("print here")
+
     postContent = request.POST.get('postContent')
-    print("Postcontent------", postContent)
+
 
 
     if postContent is not None:
