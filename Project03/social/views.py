@@ -27,8 +27,10 @@ def messages_view(request):
         posts = models.Post.objects.all()
         post_visits = request.session.get('post_visits', 0)
         allPosts=[]
-        for personInfo in posts.all():
-            allPosts.append(personInfo)
+        for post in posts.all():
+            allPosts.append(post)
+            print('----post loop content:', post.content)
+
 
         listUpperBound = post_visits + 2
         postSize = len(allPosts)
@@ -44,10 +46,11 @@ def messages_view(request):
         print("post_list+++++++", posts)
         # TODO Objective 10: check if user has like post, attach as a new attribute to each post
 
-        context = { 'user_info' : user_info
-                  , 'posts' : posts,
+        context = { 'user_info':user_info,
+                    'posts' : posts,
                     'friends':friends,
                     'new_list':new_list}
+
         return render(request,'messages.djhtml',context)
 
     request.session['failed'] = True
@@ -207,15 +210,21 @@ def like_view(request):
                              an empty HttpResponse, 404 if any error occurs
     '''
     postIDReq = request.POST.get('postID')
+
     if postIDReq is not None:
         # remove 'post-' from postID and convert to int
         # TODO Objective 10: parse post id from postIDReq
-        postID = 0
+        postID = postIDReq[5:]
+
 
         if request.user.is_authenticated:
             # TODO Objective 10: update Post model entry to add user to likes field
+            if request.method=="POST":
 
-            # return status='success'
+                myuserInfo = models.UserInfo.objects.get(user=request.user)
+                likedPost = models.Post.objects.filter(id=postID)[0]
+                likedPost.likes.add(myuserInfo)
+
             return HttpResponse()
         else:
             return redirect('login:login_view')
@@ -241,6 +250,7 @@ def post_submit_view(request):
 
     if postContent is not None:
         if request.user.is_authenticated:
+
             # TODO Objective 8: Add a new entry to the Post model
             if request.method == "POST":
                 myuserInfo = models.UserInfo.objects.get(user=request.user)
