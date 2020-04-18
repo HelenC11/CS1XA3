@@ -25,9 +25,11 @@ def messages_view(request):
         # TODO Objective 9: query for posts (HINT only return posts needed to be displayed)
         posts = []
         posts = models.Post.objects.all()
+        posts=posts[::-1]
+
         post_visits = request.session.get('post_visits', 0)
         allPosts=[]
-        for post in posts.all():
+        for post in posts:
             allPosts.append(post)
 
 
@@ -43,7 +45,8 @@ def messages_view(request):
             new_list = allPosts
 
 
-        new_list = new_list[::-1]
+
+
         print("post_list+++++++", posts)
         # TODO Objective 10: check if user has like post, attach as a new attribute to each post
 
@@ -155,12 +158,18 @@ def people_view(request):
         myuserInfo = models.UserInfo.objects.get(user=request.user)
         myFriends = myuserInfo.friends.all()
 
+
+
         print("--all users= ", len(all_users))
+
+
 
         all_people = []
         for personInfo in all_users.all():
             if personInfo not in myFriends:
-                all_people.append(personInfo)
+
+
+                    all_people.append(personInfo)
             else:
                 print("--people view: in myFriend: "+personInfo.user.username)
 
