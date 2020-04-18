@@ -93,7 +93,7 @@ def account_view(request):
         form = None
         # TODO Objective 3: Create Forms and Handle POST to Update UserInfo / Password
         existingUserInfo = models.UserInfo.objects.get(user=request.user)
-
+        print("existingUserInfo:----------",existingUserInfo.location)
         if request.method == 'POST':
             formName = request.POST.get('name')
             print("-------formName:" + formName);
@@ -104,6 +104,7 @@ def account_view(request):
                     user = get_user(request)
                     user.set_password(password)
                     user.save()
+                    return redirect('login:login_view')
             else:
                 request.user.employment = request.POST['employment']
                 request.user.location = request.POST['location']
@@ -113,15 +114,16 @@ def account_view(request):
                 inter.save()
                 request.user.save()
 
-                if request.POST['employment'] is not None:
+                if request.POST['employment'] != '':
                     existingUserInfo.employment = request.user.employment
 
-                if request.POST['location'] is not None:
+
+                if request.POST['location'] != '':
                     existingUserInfo.location = request.user.location
 
-                if request.POST['birthday'] != "" and request.POST['birthday'] is not None:
+                if request.POST['birthday'] != "":
                     existingUserInfo.birthday = request.user.birthday
-                else:
+                elif existingUserInfo.birthday==None:
                     # existingUserInfo.birthday = datetime.strptime(str(existingUserInfo.birthday), '%Y-%m-%d')
                     existingUserInfo.birthday = None
 
