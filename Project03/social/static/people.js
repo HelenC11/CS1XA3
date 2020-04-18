@@ -56,11 +56,32 @@ function submitMorePpl(event) {
    |                           called by $('.acceptdecline-button').click(acceptDeclineRequest)
    ********************************************************************************************
    */
+function acceptDeclineResponse(data,status) {
+    if (status == 'success') {
+        // reload page to update like count
+        location.reload();
+    }
+    else {
+        alert('failed to accept/Delete friend request ' + status);
+    }
+}
 
 function acceptDeclineRequest(event) {
     // TODO Objective 6: perform AJAX POST to accept or decline Friend Request
-    alert('Accept/Decline Button Pressed');
+
+
+    let decision = event.target.id;
+    let json_data = { 'decision' : decision };
+    // globally defined in messages.djhtml using i{% url 'social:like_view' %}
+    let url_path = accept_decline_url;
+
+    // AJAX post
+    $.post(url_path,
+           json_data,
+           acceptDeclineResponse);
 }
+
+
 
 /* ********************************************************************************************
    | Document Ready (Only Execute After Document Has Been Loaded)
