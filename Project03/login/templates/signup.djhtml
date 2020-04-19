@@ -2,6 +2,32 @@
 
 {% block title %}Signup Page{% endblock %}
 
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'w3login.css' %}">
+{% endblock %}
+
 {% block middle_column %}
     <!-- TODO Objective 1: implement signup form -->
+
+    <div class="container">
+        <form method="post" action="{% url 'login:signup_view' %}">
+         {% csrf_token %}
+        <label for="username"><b>Username</b></label>
+             <input type="text" placeholder="Enter Username" name="username" required>
+
+             <label for="password"><b>Password</b></label>
+             <input type="password" placeholder="Enter Password" name="password" required>
+            {{ login_form }}
+        <button type="submit">Sign up</button>
+         </form>
+    </div>
+
+
+
+
+  <!-- Modal Content -->
+
+
+
 {% endblock %}
