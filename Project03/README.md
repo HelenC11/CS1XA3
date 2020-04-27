@@ -97,5 +97,5 @@ Log in with TestUser, password 1234
 - Cat (7777)
 
 
-*Note: TurtleLover23 has a space behind his name, so it’s TurtleLover23<space>*
+*Note: TurtleLover23 has a space behind his name*
 
