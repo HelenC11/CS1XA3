@@ -18,7 +18,12 @@
 
 
                 <!-- TODO Objective 5: make id unique to username and disable button if friend request already sent -->
-                <button type="button" id="fr-{{personInfo.user}}" class="w3-button w3-theme-d1 w3-margin-bottom fr-button">Friend Request</button>
+
+                {% if personInfo not in sent_list %}
+                    <button type="button" id="fr-{{personInfo.user}}" class="w3-button w3-theme-d1 w3-margin-bottom fr-button">Friend Request</button>
+                {% else %}
+                    <button type="button" id="fr-{{personInfo.user}}" class="w3-disabled">Friend Request</button>
+                {% endif %}
 
         </div>
         {% endif %}

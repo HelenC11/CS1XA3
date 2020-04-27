@@ -44,10 +44,6 @@ def messages_view(request):
         else:
             new_list = allPosts
 
-
-
-
-        print("post_list+++++++", posts)
         # TODO Objective 10: check if user has like post, attach as a new attribute to each post
 
         context = { 'user_info':user_info,
@@ -160,21 +156,10 @@ def people_view(request):
         myuserInfo = models.UserInfo.objects.get(user=request.user)
         myFriends = myuserInfo.friends.all()
 
-
-
-        print("--all users= ", len(all_users))
-
-
-
         all_people = []
         for personInfo in all_users.all():
             if personInfo not in myFriends:
-
-
                     all_people.append(personInfo)
-            else:
-                print("--people view: in myFriend: "+personInfo.user.username)
-
 
         num_visits = request.session.get('num_visits', 0)
 
@@ -190,7 +175,16 @@ def people_view(request):
 
         # TODO Objective 5: create a list of all friend requests to current user
         friend_list = models.FriendRequest.objects.filter(to_user=myuserInfo)
+        given_list = models.FriendRequest.objects.filter(from_user=myuserInfo)
+
+        sent_list=[]
+        for stuff in given_list:
+            sent_list.append(stuff.to_user)
+
+        print(sent_list)
+
         friend_requests = []
+
         for friend in friend_list:
             friend_requests.append(friend.from_user)
 
@@ -198,7 +192,8 @@ def people_view(request):
                     'all_people' : all_people,
                     'num_visits' : num_visits,
                     'new_list' : new_list,
-                    'friend_requests' : friend_requests }
+                    'friend_requests' : friend_requests,
+                    'sent_list' : sent_list}
 
         return render(request,'people.djhtml',context)
 

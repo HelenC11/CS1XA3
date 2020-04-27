@@ -19,6 +19,8 @@ Log in with TestUser, password 1234
 - makes a POST request for Username and Password, creates a User and UserInfo for the new user
 - redirects the user to messages page once an account is created
 
+**Exceptions:** all Usernames must be unique so if a already made username is used, an exception may occur
+
 
 ## Objective 02
 **Description:** Displays the users interests, birthday, location, employment 
@@ -30,7 +32,7 @@ Log in with TestUser, password 1234
 - Displayed in account.djhtml, rendered by account_view 
 - if password is changed, it redirects the user to the login page
 - POST request for content to be changed
-
+**Exceptions:** If birthday is not entered in proper format (YYYY-MM-DD) or a nonexistent date is entered an error will occur
 
 ## Objective 04
 **Description:** Displays a list of people who are not friends with the user
@@ -81,5 +83,19 @@ Log in with TestUser, password 1234
 
 
 ## Objective 11
-**Description:** Sample social media with test users
+**Description:** Sample social media with test users. Username in front and password in brackets
+
+- TestUser (1234)
+- TestUser2 (1234)
+- Jane Doe (1234)
+- TurtleLover23 (1111) 
+- 2KidsInATrenchcoat (2222)
+- DefinitelyNotARobot (3333)
+- Coronavirus (4444)
+- Miss Goody 2 Shoes (5555)
+- Dragon (6666)
+- Cat (7777)
+
+
+*Note: TurtleLover23 has a space behind his name*
 
