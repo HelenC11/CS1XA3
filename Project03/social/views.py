@@ -44,10 +44,6 @@ def messages_view(request):
         else:
             new_list = allPosts
 
-
-
-
-        print("post_list+++++++", posts)
         # TODO Objective 10: check if user has like post, attach as a new attribute to each post
 
         context = { 'user_info':user_info,
